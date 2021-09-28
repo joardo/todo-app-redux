@@ -7,7 +7,7 @@ export class Todo {
 
 constructor( texto: string){
     this.texto = texto;
-    this.id = new Date().getTime();
+    this.id = Math.round(Math.random() * 10000000);
     this.completado = false;
 
 

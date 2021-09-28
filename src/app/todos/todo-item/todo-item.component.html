@@ -1,10 +1,24 @@
 <!-- 'editiong' 'completed' -->
 
-<li class="completed">
+<!--  completado nos "tacha la tarea"-->
+<li [class.completed]="todo.completado"
+    [class.editing]="editando">
+  <form [formGroup]="miFormulario">
     <div class="view">
-      <input class="toggle" type="checkbox" checked>
-      <label>Taste JavaScript</label>
+
+      <input class="toggle" 
+             type="checkbox"  
+             formControlName="chkControl">
+
+      <label (dblclick)="editar()" >{{todo.texto}}</label>
+
       <button class="destroy"></button>
     </div>
-    <input class="edit" value="Create a TodoMVC template">
+
+    <input class="edit" 
+           type="text" 
+           formControlName="txtInput"
+           #inputFisico
+           (blur)="terminarEdicion()">
+  </form>
   </li>
