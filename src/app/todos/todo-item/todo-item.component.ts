@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Todo } from '../models/todo.model';
-import { toggleCompletado } from '../todo.actions';
+import * as actions from '../todo.actions';
 
 @Component({
   selector: 'app-todo-item',
@@ -37,7 +37,7 @@ export class TodoItemComponent implements OnInit {
 
     this.miFormulario.controls.chkControl.valueChanges.subscribe(valor => {
       const id = this.todo.id;
-      this.store.dispatch(toggleCompletado({ id }))
+      this.store.dispatch(actions.toggleCompletado({ id }))
 
 
     })
@@ -54,10 +54,20 @@ export class TodoItemComponent implements OnInit {
   terminarEdicion() {
     this.editando = false;
 
+    if (this.miFormulario.invalid) return;
+    if (this.miFormulario.controls.txtInput.value === this.todo.texto) return;
 
+    this.store.dispatch(
+      actions.editar({
+        id: this.todo.id, 
+        texto: this.miFormulario.controls.txtInput.value
+      })
+    );
+  }
 
-
-
+  borrar(){
+    console.log('borrando', this.todo.id);  
+    this.store.dispatch(actions.borrar({id: this.todo.id}))  
   }
 
 
