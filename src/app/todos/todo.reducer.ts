@@ -4,10 +4,12 @@ import { crear } from './todo.actions';
 
 
 
-
-
-export const estadoInicial: Todo[] = 
-  [new Todo('Salvar al mundo')];
+export const estadoInicial: Todo[] = [
+  new Todo('Salvar al mundo'),
+  new Todo('Vencer a thanos'),
+  new Todo('Comprar traje de Ironman'),
+  new Todo('Robar escudo de Capitán América'),
+];
  
 const _todoReducer = createReducer(
   estadoInicial,
