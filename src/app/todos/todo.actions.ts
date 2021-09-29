@@ -20,3 +20,12 @@ export const editar = createAction(
     '[TODO] Edutar Todo',
     props<{ id: number, texto: string }>()
   );
+
+export const toggleAll = createAction(
+    '[TODO] Toggle All Todos',
+    props<{completado: boolean}>()
+  );
+
+export const borrarCompletados = createAction(
+    '[TODO] Borrar todos completados'
+  );

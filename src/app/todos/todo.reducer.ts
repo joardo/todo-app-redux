@@ -10,13 +10,13 @@ export const estadoInicial: Todo[] = [
   new Todo('Comprar traje de Ironman'),
   new Todo('Robar escudo de Capitán América'),
 ];
- 
+
 const _todoReducer = createReducer(
   estadoInicial,
-  on(actions.crear, (state, { texto }) => [...state, new Todo( texto )]), 
-  on(actions.toggleCompletado, (state, {id}) => {
-    return state.map( todo => {      
-      if( todo.id === id){
+  on(actions.crear, (state, { texto }) => [...state, new Todo(texto)]),
+  on(actions.toggleCompletado, (state, { id }) => {
+    return state.map(todo => {
+      if (todo.id === id) {
         return {
           ...todo,
           completado: !todo.completado
@@ -24,12 +24,12 @@ const _todoReducer = createReducer(
       } else {
         return todo;
       }
-    } )
+    })
 
-  } ),
-  on(actions.editar, (state, {id, texto}) => {
-    return state.map( todo => {      
-      if( todo.id === id){
+  }),
+  on(actions.editar, (state, { id, texto }) => {
+    return state.map(todo => {
+      if (todo.id === id) {
         return {
           ...todo,
           texto,
@@ -37,16 +37,32 @@ const _todoReducer = createReducer(
       } else {
         return todo;
       }
-    } )
+    })
 
-  } ),
-  on(actions.borrar, (state, {id}) => {
-     return state.filter( todo => todo.id !== id )}
+  }),
+  on(actions.borrar, (state, { id }) => {
+    return state.filter(todo => todo.id !== id)
+  }
 
 
-   ),
+  ),
+  on(actions.toggleAll, (state, { completado }) => {
+    return state.map(todo => {
+      return {
+        ...todo,
+        completado
+      }
+    })
+  },
+
+
+  ),
+  on(actions.borrarCompletados, state => {
+    return state.filter( todo => !todo.completado)
+  }),
+
 );
- 
+
 export function todoReducer(state: any, action: any) {
   return _todoReducer(state, action);
 }
